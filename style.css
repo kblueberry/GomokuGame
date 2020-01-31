@@ -1,0 +1,34 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#game-field {
+  text-align: center;
+}
+
+.game-field-wrapper {
+  width: auto;
+  height: auto;
+  display: inline-block;
+  border: 20px solid #966f54;
+  margin: 0 auto;
+  box-sizing: content-box;
+  background-color: #966f54;
+}
+
+.field-row > td {
+  width: 30px;
+  height: 30px;
+  border: 1px solid black;
+  border-spacing: 0;
+  box-sizing: content-box;
+}
+
+.game-field {
+  top: 6px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  border-collapse: collapse;
+}
