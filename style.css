@@ -24,20 +24,20 @@ body {
   background-color: #966f54;
 }
 
+.game-field-table {
+  top: 6px;
+  bottom: 20px;
+  left: 20px;
+  right: 20px;
+  border-collapse: collapse;
+}
+
 .field-row > td {
   width: 30px;
   height: 30px;
   border: 1px solid black;
   border-spacing: 0;
   box-sizing: content-box;
-}
-
-#game-field-table {
-  top: 6px;
-  bottom: 20px;
-  left: 20px;
-  right: 20px;
-  border-collapse: collapse;
 }
 
 .circle {

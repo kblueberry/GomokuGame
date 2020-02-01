@@ -1,41 +1,37 @@
 function renderGamePage() {
-  const parent = document.getElementById('#root');
-  const field = document.createElement('div');
-  field.setAttribute('id', 'game-field');
-  parent.appendChild(field);
+  const parent = document.getElementById('game-field');
   const fieldWrapper = document.createElement('div');
-  fieldWrapper.setAttribute('class', 'game-field-wrapper');
-  field.appendChild(fieldWrapper);
+  fieldWrapper.setAttribute('id', 'game-field-wrapper');
 
   const fieldTable = document.createElement('table');
   fieldTable.setAttribute('class', 'game-field-table');
+
+  const rows = 15;
+  const cols = 15;
+
+  for (let i = 0; i < rows; i++) {
+    const tableRow = document.createElement('tr');
+    tableRow.setAttribute('class', 'field-row');
+    for (let j = 0; j < cols; j++) {
+      const tableCell = document.createElement('td');
+      tableRow.appendChild(tableCell);
+    }
+    fieldTable.appendChild(tableRow);
+  }
   fieldWrapper.appendChild(fieldTable);
-
-  renderGameField();
+  parent.appendChild(fieldWrapper);
 }
 
-function renderGameField() {
-  for (let row = 0; row <= 15; row++) {
-    const row = document.createElement('tr');
-    row.setAttribute('class', 'field-row');
-    fieldTable.appendChild(row);
-    for (let cell = 0; cell <= 15; cell++) {
-      const cell = document.createElement('td');
-      row.appendChild(cell);
-    }
-  }
+renderGamePage();
 
-  createRoundsOverTheWholeField();
-}
-
-function createRoundsOverTheWholeField() {
-  for (let row = 0; row <= 15; row++) {
-    const row = document.getElementsByClassName('field-row');
-    const cell = document.getElementsByTagName('td');
-    for (let cell = 0; cell <= 15; cell++) {
-      const div = document.createElement('div');
-      div.setAttribute('class', 'circle');
-      cell.appendChild(div);
-    }
-  }
-}
+// function createRoundsOverTheWholeField() {
+//   for (let row = 0; row <= 15; row++) {
+//     const row = document.getElementsByClassName('field-row');
+//     const cell = document.getElementsByTagName('td');
+//     for (let cell = 0; cell <= 15; cell++) {
+//       const div = document.createElement('div');
+//       div.setAttribute('class', 'circle');
+//       cell.appendChild(div);
+//     }
+//   }
+// }
