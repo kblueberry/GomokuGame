@@ -32,18 +32,47 @@ body {
   border-collapse: collapse;
 }
 
+.field-row:last-child {
+  border-bottom: none;
+  border-right: none;
+  border-left: none;
+}
+
+.field-row:last-child > td {
+  border-right: none;
+  border-left: none;
+  border-bottom: none;
+  width: 0;
+  height: 0;
+}
+
+.field-row > td:last-child {
+  border-bottom: none;
+  border-right: none;
+  border-top: none;
+  width: 0;
+  height: 0;
+}
+
 .field-row > td {
+  position: relative;
   width: 30px;
   height: 30px;
   border: 1px solid black;
   border-spacing: 0;
-  box-sizing: content-box;
+  box-sizing: border-box;
 }
 
 .circle {
   position: absolute;
-  background-color: blue;
+  top: -13px;
+  left: -13px;
   border-radius: 50%;
-  width: 20px;
-  height: 20px;
+  width: 25px;
+  height: 25px;
+}
+
+.circle:hover {
+  background-color: #fafafa;
+  opacity: 0.2;
 }

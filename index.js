@@ -6,8 +6,8 @@ function renderGamePage() {
   const fieldTable = document.createElement('table');
   fieldTable.setAttribute('class', 'game-field-table');
 
-  const rows = 15;
-  const cols = 15;
+  const rows = 16;
+  const cols = 16;
 
   for (let i = 0; i < rows; i++) {
     const tableRow = document.createElement('tr');
@@ -24,14 +24,17 @@ function renderGamePage() {
 
 renderGamePage();
 
-// function createRoundsOverTheWholeField() {
-//   for (let row = 0; row <= 15; row++) {
-//     const row = document.getElementsByClassName('field-row');
-//     const cell = document.getElementsByTagName('td');
-//     for (let cell = 0; cell <= 15; cell++) {
-//       const div = document.createElement('div');
-//       div.setAttribute('class', 'circle');
-//       cell.appendChild(div);
-//     }
-//   }
-// }
+function createRoundsOverTheWholeField() {
+  const x = 256;
+  const y = 256;
+  const cells = Array.from(document.getElementsByTagName('td'));
+  for (let i = 0; i <= x; i++) {
+    for (let j = 0; j <= y; j++) {
+      const divCircle = document.createElement('div');
+      divCircle.classList.add('circle');
+      cells[(i, j)].appendChild(divCircle);
+    }
+  }
+}
+
+createRoundsOverTheWholeField();
