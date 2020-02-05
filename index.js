@@ -1,3 +1,5 @@
+let isTurnWhite;
+
 function renderGamePage() {
   const parent = document.getElementById('game-field');
   const fieldWrapper = document.createElement('div');
@@ -32,8 +34,34 @@ function createRoundsOverTheWholeField() {
     for (let j = 0; j <= y; j++) {
       const divCircle = document.createElement('div');
       divCircle.classList.add('circle');
+      divCircle.classList.add('circle-empty');
       cells[(i, j)].appendChild(divCircle);
+      divCircle.addEventListener('click', changeColors);
     }
+  }
+}
+
+function changeColors(e) {
+  if (isTurnWhite) {
+    e.target.classList.add('circle-white');
+  } else {
+    e.target.classList.add('circle-black');
+  }
+  changePlayers();
+  isTurnWhite = !isTurnWhite;
+  e.target.classList.remove('circle-empty');
+  e.target.removeEventListener('click', changeColors);
+}
+
+function changePlayers() {
+  const isBlack = document.getElementById('black');
+  const isWhite = document.getElementById('white');
+  if (isTurnWhite) {
+    isWhite.setAttribute('style', '');
+    isBlack.setAttribute('style', 'text-decoration:underline');
+  } else {
+    isWhite.setAttribute('style', 'text-decoration:underline');
+    isBlack.setAttribute('style', '');
   }
 }
 

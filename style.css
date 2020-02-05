@@ -72,7 +72,20 @@ body {
   height: 25px;
 }
 
-.circle:hover {
+.circle-empty:hover {
   background-color: #fafafa;
   opacity: 0.2;
+  cursor: pointer;
+}
+
+.circle-white {
+  background-color: white;
+}
+
+.circle-black {
+  background-color: black;
+}
+
+.underline {
+  text-decoration: underline;
 }
