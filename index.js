@@ -1,4 +1,7 @@
 let isTurnWhite;
+const rows = 16;
+const cols = 16;
+const allCells = 256;
 
 function renderGamePage() {
   const parent = document.getElementById('game-field');
@@ -7,9 +10,6 @@ function renderGamePage() {
 
   const fieldTable = document.createElement('table');
   fieldTable.setAttribute('class', 'game-field-table');
-
-  const rows = 16;
-  const cols = 16;
 
   for (let i = 0; i < rows; i++) {
     const tableRow = document.createElement('tr');
@@ -27,11 +27,9 @@ function renderGamePage() {
 renderGamePage();
 
 function createRoundsOverTheWholeField() {
-  const x = 256;
-  const y = 256;
   const cells = Array.from(document.getElementsByTagName('td'));
-  for (let i = 0; i <= x; i++) {
-    for (let j = 0; j <= y; j++) {
+  for (let i = 0; i <= allCells; i++) {
+    for (let j = 0; j <= allCells; j++) {
       const divCircle = document.createElement('div');
       divCircle.classList.add('circle');
       divCircle.classList.add('circle-empty');
@@ -44,10 +42,11 @@ function createRoundsOverTheWholeField() {
 function changeColors(e) {
   if (isTurnWhite) {
     e.target.classList.add('circle-white');
+    changePlayers();
   } else {
     e.target.classList.add('circle-black');
+    changePlayers();
   }
-  changePlayers();
   isTurnWhite = !isTurnWhite;
   e.target.classList.remove('circle-empty');
   e.target.removeEventListener('click', changeColors);
@@ -62,6 +61,12 @@ function changePlayers() {
   } else {
     isWhite.setAttribute('style', 'text-decoration:underline');
     isBlack.setAttribute('style', '');
+  }
+}
+
+function checkIfLineIsCompleted() {
+  for (let i = 0; i <= allCells; i++) {
+    for (let j = 0; j <= allCells; j++) {}
   }
 }
 
