@@ -2,6 +2,8 @@ let isTurnWhite;
 const rows = 16;
 const cols = 16;
 const allCells = 256;
+const xCoordinates = 16;
+const yCoordinates = 16;
 
 function renderGamePage() {
   const parent = document.getElementById('game-field');
@@ -28,8 +30,8 @@ renderGamePage();
 
 function createRoundsOverTheWholeField() {
   const cells = Array.from(document.getElementsByTagName('td'));
-  for (let i = 0; i <= allCells; i++) {
-    for (let j = 0; j <= allCells; j++) {
+  for (let i = 0; i < allCells; i++) {
+    for (let j = 0; j < allCells; j++) {
       const divCircle = document.createElement('div');
       divCircle.classList.add('circle');
       divCircle.classList.add('circle-empty');
@@ -64,10 +66,27 @@ function changePlayers() {
   }
 }
 
-function checkIfLineIsCompleted() {
-  for (let i = 0; i <= allCells; i++) {
-    for (let j = 0; j <= allCells; j++) {}
+function checkLineHorizontallyLeftToRight() {
+  for (let i = 0; i < xCoordinates; i++) {
+    for (let j = 0; j < yCoordinates; j++) {
+      let divCircles = Array.from(document.getElementsByClassName('circle'));
+      if (
+        divCircles[i][j].classList.contains('circle-white') ||
+        (divCircles[i][j].classList.contains('circle-black') &&
+          divCircles[i + 1][j].classList.contains('circle-white')) ||
+        (divCircles[i + 1][j].classList.contains('circle-black') &&
+          divCircles[i + 2][j].classList.contains('circle-white')) ||
+        (divCircles[i + 2][j].classList.contains('circle-black') &&
+          divCircles[i + 3][j].classList.contains('circle-white')) ||
+        divCircles[i + 3][j].classList.contains('circle-black')
+      ) {
+        alert('You won!');
+        removeEventListener('click', changeColors);
+      }
+    }
   }
 }
+
+function showWinnerMessage() {}
 
 createRoundsOverTheWholeField();
