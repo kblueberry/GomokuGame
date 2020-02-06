@@ -101,7 +101,7 @@ function showWinner() {
 
   setTimeout(() => {
     alert(`Player ${color} has won!`);
-  }, 500);
+  }, 200);
 }
 
 function changePlayers() {
@@ -118,29 +118,45 @@ function changePlayers() {
 }
 
 function checkLine(start, diff) {
-  let count = 0;
+  let nodeSequence = [];
   let color = isTurnWhite ? 'circle-white' : 'circle-black';
   const circles = Array.from(document.getElementsByClassName('circle'));
   const tableSize = 16;
 
   let { x, y } = start;
   for (let i = 0; i <= 6; i++, x += diff.x, y += diff.y) {
-    if (x < 0 || x > 15 || y < 0 || x > 15) {
+    if (x < 0 || x > 15 || y < 0 || y > 15) {
       return false;
     }
 
     const index = x + tableSize * y;
     if (circles[index].classList.contains(color)) {
-      count++;
-      count = 0;
-    }
-
-    if (count === 4) {
-      return true;
+      nodeSequence.push(circles[index]);
+    } else {
+      if (nodeSequence.length >= 4) {
+        markCirclesRed(nodeSequence);
+        return true;
+      } else {
+        nodeSequence = [];
+      }
     }
   }
 
+  if (nodeSequence.length >= 4) {
+    markCirclesRed(nodeSequence);
+    return true;
+  };
+
   return false;
+}
+
+function markCirclesRed(nodes) {
+  nodes.forEach(node => {
+    node.classList.remove('circle-white');
+    node.classList.remove('circle-black');
+
+    node.classList.add('circle-red');
+  });
 }
 
 createRoundsOverTheWholeField();

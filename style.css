@@ -100,7 +100,7 @@ body {
   background: radial-gradient(
     circle farthest-corner at bottom right,
     #fbfbfb 15%,
-    red 53%
+    rgb(184, 26, 34) 53%
   );
   box-shadow: -3px 4px 0px 0px rgba(0, 0, 0, 0.09);
 }
