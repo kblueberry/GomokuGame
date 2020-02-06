@@ -33,62 +33,114 @@ renderGamePage();
 function createRoundsOverTheWholeField() {
   const cells = Array.from(document.getElementsByTagName('td'));
   for (let i = 0; i < allCells; i++) {
+    const y = Math.floor(i / 16);
+    const x = i - y * 16;
+
     const divCircle = document.createElement('div');
     divCircle.classList.add('circle');
     divCircle.classList.add('circle-empty');
+    divCircle.setAttribute('data-x', x);
+    divCircle.setAttribute('data-y', y);
     cells[i].appendChild(divCircle);
-    divCircle.addEventListener('click', changeColors);
+    divCircle.addEventListener('click', makeTurn);
   }
 }
 
-function changeColors(e) {
+function makeTurn(e) {
+  const circleNode = e.target;
+
   if (isTurnWhite) {
-    e.target.classList.add('circle-white');
-    changePlayers();
+    circleNode.classList.add('circle-white');
   } else {
-    e.target.classList.add('circle-black');
-    changePlayers();
+    circleNode.classList.add('circle-black');
   }
-  isTurnWhite = !isTurnWhite;
-  e.target.classList.remove('circle-empty');
-  e.target.removeEventListener('click', changeColors);
+
+  const x = +circleNode.getAttribute('data-x');
+  const y = +circleNode.getAttribute('data-y');
+  let startX = Math.max(x - 3, 0);
+
+  if (checkLine({ x: startX, y }, { x: 1, y: 0 })) {
+    showWinner();
+    return;
+  }
+
+  let startY = Math.max(y - 3, 0);
+  if (checkLine({ x, y: startY }, { x: 0, y: 1 })) {
+    showWinner();
+    return;
+  }
+
+  startX = Math.max(x - 3, 0);
+  startY = Math.max(y - 3, 0);
+  if (checkLine({ x: startX, y: startY }, { x: 1, y: 1 })) {
+    showWinner();
+    return;
+  }
+
+  startX = Math.max(x - 3, 0);
+  startY = Math.min(y + 3, 15);
+  if (checkLine({ x: startX, y: startY }, { x: 1, y: -1 })) {
+    showWinner();
+    return;
+  }
+
+  changePlayers();
+  circleNode.classList.remove('circle-empty');
+  circleNode.removeEventListener('click', makeTurn);
+}
+
+function showWinner() {
+  let color = isTurnWhite ? 'White' : 'Black';
+
+  const circles = Array.from(document.getElementsByClassName('circle'));
+
+  circles.forEach(c => {
+    c.removeEventListener('click', makeTurn);
+    c.classList.remove('circle-empty');
+  });
+
+  setTimeout(() => {
+    alert(`Player ${color} has won!`);
+  }, 500);
 }
 
 function changePlayers() {
+  isTurnWhite = !isTurnWhite;
   const isBlack = document.getElementById('black');
   const isWhite = document.getElementById('white');
   if (isTurnWhite) {
-    isWhite.setAttribute('style', '');
-    isBlack.setAttribute('style', 'text-decoration:underline');
-  } else {
     isWhite.setAttribute('style', 'text-decoration:underline');
     isBlack.setAttribute('style', '');
+  } else {
+    isWhite.setAttribute('style', '');
+    isBlack.setAttribute('style', 'text-decoration:underline');
   }
 }
 
-function checkLineHorizontallyLeftToRight() {
-  // for (let i = 0; i < allCells; i++) {
-  //   let divCircles = Array.from(document.getElementsByClassName('circle'));
-  //   if (
-  //     divCircles[i].classList.contains('circle-white') &&
-  //     divCircles[i + 1].classList.contains('circle-white') &&
-  //     divCircles[i + 2].classList.contains('circle-white') &&
-  //     divCircles[i + 3].classList.contains('circle-white')
-  //   ) {
-  //     removeEventListener('click', changeColors);
-  //     divMessage.innerHTML = `${white} is winner!`;
-  //   } else if (
-  //     divCircles[i].classList.contains('circle-white') &&
-  //     divCircles[i + 1].classList.contains('circle-white') &&
-  //     divCircles[i + 2].classList.contains('circle-white') &&
-  //     divCircles[i + 3].classList.contains('circle-white')
-  //   ) {
-  //     removeEventListener('click', changeColors);
-  //     divMessage.innerHTML = `${black} is winner!`;
-  //   }
-  // }
+function checkLine(start, diff) {
+  let count = 0;
+  let color = isTurnWhite ? 'circle-white' : 'circle-black';
+  const circles = Array.from(document.getElementsByClassName('circle'));
+  const tableSize = 16;
+
+  let { x, y } = start;
+  for (let i = 0; i <= 6; i++, x += diff.x, y += diff.y) {
+    if (x < 0 || x > 15 || y < 0 || x > 15) {
+      return false;
+    }
+
+    const index = x + tableSize * y;
+    if (circles[index].classList.contains(color)) {
+      count++;
+      count = 0;
+    }
+
+    if (count === 4) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 createRoundsOverTheWholeField();
-
-checkLineHorizontallyLeftToRight();
