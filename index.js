@@ -4,6 +4,10 @@ const cols = 16;
 const allCells = 256;
 const xCoordinates = 16;
 const yCoordinates = 16;
+const black = document.getElementsByClassName('black').nodeValue;
+const white = document.getElementsByClassName('white').nodeValue;
+const divMessage = document.createElement('div');
+divMessage.setAttribute('class', 'message');
 
 function renderGamePage() {
   const parent = document.getElementById('game-field');
@@ -68,25 +72,27 @@ function changePlayers() {
 
 function checkLineHorizontallyLeftToRight() {
   for (let i = 0; i < xCoordinates; i++) {
-    for (let j = 0; j < yCoordinates; j++) {
-      let divCircles = Array.from(document.getElementsByClassName('circle'));
-      if (
-        divCircles[i][j].classList.contains('circle-white') ||
-        (divCircles[i][j].classList.contains('circle-black') &&
-          divCircles[i + 1][j].classList.contains('circle-white')) ||
-        (divCircles[i + 1][j].classList.contains('circle-black') &&
-          divCircles[i + 2][j].classList.contains('circle-white')) ||
-        (divCircles[i + 2][j].classList.contains('circle-black') &&
-          divCircles[i + 3][j].classList.contains('circle-white')) ||
-        divCircles[i + 3][j].classList.contains('circle-black')
-      ) {
-        alert('You won!');
-        removeEventListener('click', changeColors);
-      }
+    let divCircles = Array.from(document.getElementsByClassName('circle'));
+    if (
+      divCircles[i].classList.contains('circle-white') &&
+      divCircles[i + 1].classList.contains('circle-white') &&
+      divCircles[i + 2].classList.contains('circle-white') &&
+      divCircles[i + 3].classList.contains('circle-white')
+    ) {
+      removeEventListener('click', changeColors);
+      divMessage.innerHTML = `${white} is winner!`;
+    } else if (
+      divCircles[i].classList.contains('circle-white') &&
+      divCircles[i + 1].classList.contains('circle-white') &&
+      divCircles[i + 2].classList.contains('circle-white') &&
+      divCircles[i + 3].classList.contains('circle-white')
+    ) {
+      removeEventListener('click', changeColors);
+      divMessage.innerHTML = `${black} is winner!`;
     }
   }
 }
 
-function showWinnerMessage() {}
+function checkLineHorizontallyLeftToRight();
 
 createRoundsOverTheWholeField();
