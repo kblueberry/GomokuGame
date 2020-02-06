@@ -90,18 +90,17 @@ body {
     #fbfbfb 15%,
     #020202 53%
   );
-  background: -webkit-radial-gradient(
-    circle farthest-corner at bottom right,
-    #fbfbfb 15%,
-    #020202 53%
-  );
-  background: -moz-radial-gradient(
-    circle farthest-corner at bottom right,
-    #fbfbfb 15%,
-    #020202 53%
-  );
   box-shadow: -3px 4px 0px 0px rgba(0, 0, 0, 0.09);
 }
 .underline {
   text-decoration: underline;
+}
+.circle-red {
+  background-color: red;
+  background: radial-gradient(
+    circle farthest-corner at bottom right,
+    #fbfbfb 15%,
+    red 53%
+  );
+  box-shadow: -3px 4px 0px 0px rgba(0, 0, 0, 0.09);
 }

@@ -2,8 +2,6 @@ let isTurnWhite;
 const rows = 16;
 const cols = 16;
 const allCells = 256;
-const xCoordinates = 16;
-const yCoordinates = 16;
 const black = document.getElementsByClassName('black').nodeValue;
 const white = document.getElementsByClassName('white').nodeValue;
 const divMessage = document.createElement('div');
@@ -35,13 +33,11 @@ renderGamePage();
 function createRoundsOverTheWholeField() {
   const cells = Array.from(document.getElementsByTagName('td'));
   for (let i = 0; i < allCells; i++) {
-    for (let j = 0; j < allCells; j++) {
-      const divCircle = document.createElement('div');
-      divCircle.classList.add('circle');
-      divCircle.classList.add('circle-empty');
-      cells[(i, j)].appendChild(divCircle);
-      divCircle.addEventListener('click', changeColors);
-    }
+    const divCircle = document.createElement('div');
+    divCircle.classList.add('circle');
+    divCircle.classList.add('circle-empty');
+    cells[i].appendChild(divCircle);
+    divCircle.addEventListener('click', changeColors);
   }
 }
 
@@ -71,28 +67,28 @@ function changePlayers() {
 }
 
 function checkLineHorizontallyLeftToRight() {
-  for (let i = 0; i < xCoordinates; i++) {
-    let divCircles = Array.from(document.getElementsByClassName('circle'));
-    if (
-      divCircles[i].classList.contains('circle-white') &&
-      divCircles[i + 1].classList.contains('circle-white') &&
-      divCircles[i + 2].classList.contains('circle-white') &&
-      divCircles[i + 3].classList.contains('circle-white')
-    ) {
-      removeEventListener('click', changeColors);
-      divMessage.innerHTML = `${white} is winner!`;
-    } else if (
-      divCircles[i].classList.contains('circle-white') &&
-      divCircles[i + 1].classList.contains('circle-white') &&
-      divCircles[i + 2].classList.contains('circle-white') &&
-      divCircles[i + 3].classList.contains('circle-white')
-    ) {
-      removeEventListener('click', changeColors);
-      divMessage.innerHTML = `${black} is winner!`;
-    }
-  }
+  // for (let i = 0; i < allCells; i++) {
+  //   let divCircles = Array.from(document.getElementsByClassName('circle'));
+  //   if (
+  //     divCircles[i].classList.contains('circle-white') &&
+  //     divCircles[i + 1].classList.contains('circle-white') &&
+  //     divCircles[i + 2].classList.contains('circle-white') &&
+  //     divCircles[i + 3].classList.contains('circle-white')
+  //   ) {
+  //     removeEventListener('click', changeColors);
+  //     divMessage.innerHTML = `${white} is winner!`;
+  //   } else if (
+  //     divCircles[i].classList.contains('circle-white') &&
+  //     divCircles[i + 1].classList.contains('circle-white') &&
+  //     divCircles[i + 2].classList.contains('circle-white') &&
+  //     divCircles[i + 3].classList.contains('circle-white')
+  //   ) {
+  //     removeEventListener('click', changeColors);
+  //     divMessage.innerHTML = `${black} is winner!`;
+  //   }
+  // }
 }
 
-function checkLineHorizontallyLeftToRight();
-
 createRoundsOverTheWholeField();
+
+checkLineHorizontallyLeftToRight();
